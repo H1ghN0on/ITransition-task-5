@@ -46,3 +46,9 @@ export const Error = styled.span`
   background: red;
   padding: 5px 15px;
 `;
+
+export const Approvement = styled.span`
+  color: white;
+  background: green;
+  padding: 5px 15px;
+`;

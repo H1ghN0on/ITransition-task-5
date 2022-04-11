@@ -72,7 +72,7 @@ const Login: React.FC<AuthFragment> = ({
           name="password"
           value={inputValues.password}
           onChange={handleValueChange}
-          type="text"
+          type="password"
           placeholder="Password"
         />
         <Submit

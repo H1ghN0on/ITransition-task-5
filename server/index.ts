@@ -8,9 +8,14 @@ import "./config/db";
 import { passport } from "./config/passport";
 import cors from "cors";
 import AuthController from "./controllers/AuthController";
+import MessageController from "./controllers/MessageController";
 
 const app = express();
 const PORT = 3001;
+
+const server = require("http").Server(app);
+
+const io = require("socket.io")(server, { cors: { origin: "*" } });
 
 app.use(cors());
 app.use(function (req, res, next) {
@@ -31,7 +36,24 @@ app.get("/", (req, res) => {
 
 app.post("/login", passport.authenticate("local"), AuthController.getMe);
 
+app.get("/messages", passport.authenticate("jwt"), MessageController.getAll);
+app.post("/message/add", passport.authenticate("jwt"), MessageController.add);
+
 app.post("/register", AuthController.register);
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
+});
+
+io.on("connection", (socket) => {
+  socket.on("NEW_MESSAGE", ({ roomId, username }) => {});
+
+  // socket.on("ROOM:NEW_MESSAGE", ({ roomId, username, text }) => {
+  //   const obj = {
+  //     username,
+  //     text,
+  //   };
+  // });
+
+  socket.on("disconnect", () => {});
 });

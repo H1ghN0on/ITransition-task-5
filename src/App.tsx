@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import React from "react";
 import { Navigate, Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
+
 import { Auth, Profile } from "./pages";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { setToken } from "./redux/tokenSlice";
@@ -15,13 +16,11 @@ export type UserData = {
 const App = () => {
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.tokenSlice.token);
-
   React.useEffect(() => {
     const cookiesToken = Cookies.get("token");
 
     dispatch(setToken(cookiesToken ?? ""));
   }, []);
-
   return (
     <div className="App">
       <BrowserRouter>

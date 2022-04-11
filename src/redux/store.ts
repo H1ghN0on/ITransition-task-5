@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { tokenSlice } from "./slices";
+import { tokenSlice, profileSlice, messageSlice } from "./slices";
 
 const rootReducer = combineReducers({
   tokenSlice,
+  profileSlice,
+  messageSlice,
 });
 
 export const store = configureStore({
