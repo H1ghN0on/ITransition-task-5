@@ -24,10 +24,10 @@ const Register: React.FC<AuthFragment> = ({
 }) => {
   const [error, setError] = React.useState<string>("");
   const [inputValues, setInputValues] = React.useState<InputRegisterType>({
-    username: "1",
-    password: "1",
-    email: "mem@ma.ru",
-    confirmPassword: "1",
+    username: "",
+    password: "",
+    email: "",
+    confirmPassword: "",
   });
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +48,7 @@ const Register: React.FC<AuthFragment> = ({
         if (data.status === "Error") {
           setError(data.message);
         } else {
-          redirectToProfile(data.user.token);
+          redirectToProfile(data.user);
         }
       } catch (error) {
         setError("Something gone wrong");

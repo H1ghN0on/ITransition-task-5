@@ -11,7 +11,7 @@ const opts = {
 
 passport.serializeUser(function (user, cb) {
   process.nextTick(function () {
-    cb(null, { id: user.id, username: user.username });
+    cb(null, { id: user });
   });
 });
 
@@ -21,7 +21,7 @@ passport.use(
   })
 );
 
-passport.deserializeUser(function (user, cb) {
+passport.deserializeUser(function (user: string, cb) {
   process.nextTick(function () {
     return cb(null, user);
   });

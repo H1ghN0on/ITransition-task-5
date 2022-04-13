@@ -4,6 +4,7 @@ import { Button, Col, Form } from "react-bootstrap";
 import { Error, Approvement } from "../../styles/components";
 import { useAppDispatch } from "../../redux/hooks";
 import { addMessage } from "../../redux/messageSlice";
+import socket from "../../config/socket";
 
 interface InputValues {
   destination: string;
@@ -48,6 +49,7 @@ const NewMessage = () => {
 
   const afterSend = (data: any) => {
     if (data.status === "OK") {
+      socket.emit("send-message", data.createdMessage);
       setApprovement("Message sended!");
       setError("");
       dispatch(addMessage({ message: data.createdMessage, type: "sended" }));
@@ -64,6 +66,7 @@ const NewMessage = () => {
         topic: inputValues.topic,
         text: inputValues.text,
       });
+
       afterSend(data);
     } catch (error) {
       setError("Some problems");

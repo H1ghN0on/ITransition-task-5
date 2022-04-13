@@ -30,10 +30,10 @@ const findUser = async (value: string | number, field: "id" | "username") => {
 const separateMessages = async (messages, curUser) => {
   const incomed = await Promise.all(
     messages
-      .filter((item) => item.destination === curUser.id)
-      .map(async (result) => {
-        result.dataValues.sender = await getName(result, curUser, "sender");
-        result.dataValues.destination = await getName(
+      .filter((item: any) => item.destination === curUser.id)
+      .map(async (result: any) => {
+        result.dataValues.senderName = await getName(result, curUser, "sender");
+        result.dataValues.destinationName = await getName(
           result,
           curUser,
           "destination"
@@ -44,10 +44,10 @@ const separateMessages = async (messages, curUser) => {
 
   const sended = await Promise.all(
     messages
-      .filter((item) => item.sender === curUser.id)
-      .map(async (result) => {
-        result.dataValues.sender = await getName(result, curUser, "sender");
-        result.dataValues.destination = await getName(
+      .filter((item: any) => item.sender === curUser.id)
+      .map(async (result: any) => {
+        result.dataValues.senderName = await getName(result, curUser, "sender");
+        result.dataValues.destinationName = await getName(
           result,
           curUser,
           "destination"
@@ -85,16 +85,17 @@ const createMessageInDB = async (message, curUser) => {
         ...message,
         destination: userStatus.user.id,
       });
-      createdMessage.sender = await getName(
+      createdMessage.dataValues.senderName = await getName(
         createdMessage,
         curUser.username,
         "sender"
       );
-      createdMessage.destination = await getName(
+      createdMessage.dataValues.destinationName = await getName(
         createdMessage,
         userStatus.user.username,
         "destination"
       );
+
       return {
         status: "OK",
         createdMessage,
@@ -122,6 +123,7 @@ const getAll = async (id) => {
           { destination: id },
         ],
       },
+      order: [["id", "DESC"]],
     });
     return {
       status: "OK",
@@ -138,7 +140,7 @@ const getAll = async (id) => {
 
 class MessageController {
   async getAll(req: express.Request, res: express.Response) {
-    const user = req.user.data;
+    const user = (req as any).user.data;
     const data = await getAll(user.id);
     if (data.messages) {
       const { incomed, sended } = await separateMessages(data.messages, user);
@@ -154,8 +156,8 @@ class MessageController {
 
   async add(req: express.Request, res: express.Response) {
     const data = await createMessageInDB(
-      Object.assign(req.body, { sender: req.user.data.id }),
-      req.user.data
+      Object.assign(req.body, { sender: (req as any).user.data.id }),
+      (req as any).user.data
     );
 
     res.send(data);

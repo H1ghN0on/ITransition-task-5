@@ -6,6 +6,7 @@ import Toolbar from "../components/Profile/Toolbar/Toolbar";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { setMessages } from "../redux/messageSlice";
 import Axios from "../config/axios";
+import { ToastContainer } from "react-toastify";
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -45,12 +46,19 @@ const Profile = () => {
   };
 
   return (
-    <Container>
-      <Row md="12" className="justify-content-center">
-        <Toolbar />
-        <Fragment />
-      </Row>
-    </Container>
+    <>
+      <Container>
+        <Row md="12" className="justify-content-center">
+          <Toolbar />
+          <Fragment />
+        </Row>
+      </Container>
+      <ToastContainer
+        position="bottom-left"
+        hideProgressBar={true}
+        autoClose={5000}
+      />
+    </>
   );
 };
 

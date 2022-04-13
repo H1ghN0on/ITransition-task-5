@@ -72,7 +72,7 @@ const addUserToDatabase = async (
 
 class AuthController {
   getMe(req: express.Request, res: express.Response) {
-    res.json(req.user);
+    res.json((req as any).user);
   }
   async register(req: express.Request, res: express.Response) {
     const userData = req.body;

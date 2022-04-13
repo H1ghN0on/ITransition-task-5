@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 const AxiosInstance = () => {
   const token = Cookies.get("token");
   const Axios = axios.create({
-    baseURL: "http://localhost:3001",
+    baseURL: "https://it-task-five.herokuapp.com",
     headers: {
       Authorization: "Bearer " + token,
     },

@@ -3,16 +3,7 @@ import { Col } from "react-bootstrap";
 import { useAppSelector } from "../../../redux/hooks";
 import Message from "./Message";
 import moment from "moment";
-
-interface MessageType {
-  id: number;
-  topic: string;
-  sender: string;
-  text: string;
-  date: string;
-  destination: string;
-  createdAt: string;
-}
+import { MessageType } from "../../../redux/messageSlice";
 
 interface MessageListProps {
   messages: MessageType[];
@@ -44,8 +35,8 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
             topic={message.topic}
             sender={
               activeFragment === "incoming"
-                ? message.sender
-                : message.destination
+                ? message.senderName
+                : message.destinationName
             }
             date={formatDate(message.createdAt)}
             text={message.text}

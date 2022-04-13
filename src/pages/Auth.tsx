@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
 import { useAppDispatch } from "../redux/hooks";
 import { setToken } from "../redux/tokenSlice";
+import socket from "../config/socket";
 
 const Background = styled.div`
   background-image: url("/background.jpeg");
@@ -18,9 +19,16 @@ const Background = styled.div`
   background-size: cover;
 `;
 
+type UserData = {
+  token: string;
+  id: number;
+  email: string;
+  username: string;
+};
+
 export type AuthFragment = {
   handleFooterClick: () => void;
-  redirectToProfile: (token: string) => void;
+  redirectToProfile: (user: UserData) => void;
 };
 
 const Auth = () => {
@@ -31,9 +39,10 @@ const Auth = () => {
     "login" | "register"
   >("login");
 
-  const redirectToProfile = (token: string) => {
-    Cookies.set("token", token);
-    dispatch(setToken(token));
+  const redirectToProfile = (user: UserData) => {
+    Cookies.set("token", user.token);
+    dispatch(setToken(user.token));
+    socket.emit("connected", user.id);
     navigate("/profile");
   };
 

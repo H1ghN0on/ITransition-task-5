@@ -34,7 +34,7 @@ const Login: React.FC<AuthFragment> = ({
       if (data.status === "Error") {
         setError(data.message);
       } else {
-        redirectToProfile(data.user.token);
+        redirectToProfile(data.user);
       }
     } catch (error) {
       setError("Something gone wrong");

@@ -41,19 +41,26 @@ app.post("/message/add", passport.authenticate("jwt"), MessageController.add);
 
 app.post("/register", AuthController.register);
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
-});
+const users = {};
 
 io.on("connection", (socket) => {
-  socket.on("NEW_MESSAGE", ({ roomId, username }) => {});
+  socket.on("connected", (id) => {
+    users[id] = socket.id;
+    console.log(users);
+  });
 
-  // socket.on("ROOM:NEW_MESSAGE", ({ roomId, username, text }) => {
-  //   const obj = {
-  //     username,
-  //     text,
-  //   };
-  // });
+  socket.on("send-message", (message) => {
+    console.log("wtf");
+    socket.to(users[message.destination]).emit("get-message", {
+      message: message,
+    });
+  });
 
-  socket.on("disconnect", () => {});
+  socket.on("disconnet", () => {
+    console.log("goodbye");
+  });
+});
+
+server.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 });
