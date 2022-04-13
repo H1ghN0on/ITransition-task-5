@@ -9,6 +9,7 @@ import { passport } from "./config/passport";
 import cors from "cors";
 import AuthController from "./controllers/AuthController";
 import MessageController from "./controllers/MessageController";
+import path from "path";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -16,6 +17,8 @@ const PORT = process.env.PORT || 3001;
 const server = require("http").Server(app);
 
 const io = require("socket.io")(server, { cors: { origin: "*" } });
+const buildPath = path.join(__dirname, "..", "build");
+app.use(express.static(buildPath));
 
 app.use(cors());
 app.use(function (req, res, next) {
