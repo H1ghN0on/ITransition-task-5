@@ -63,7 +63,7 @@
   },
   "scripts": {
   
-    "start": "ts-node server/index.js"
+    "start": "ts-node server/index.ts"
 
   },
   "eslintConfig": {
