@@ -1,7 +1,7 @@
 import Axios from "../../config/axios";
 import React from "react";
 import { Button, Col, Form } from "react-bootstrap";
-import { Error, Approvement } from "../../styles/components";
+import { Error } from "../../styles/components";
 import { useAppDispatch } from "../../redux/hooks";
 import { addMessage } from "../../redux/messageSlice";
 import socket from "../../config/socket";
@@ -15,7 +15,6 @@ interface InputValues {
 const NewMessage = () => {
   const dispatch = useAppDispatch();
 
-  const [approvement, setApprovement] = React.useState<string>("");
   const [error, setError] = React.useState<string>("");
   const [inputValues, setInputValues] = React.useState<InputValues>({
     destination: "",
@@ -49,7 +48,6 @@ const NewMessage = () => {
 
   const afterSend = (data: any) => {
     if (data.status === "OK") {
-      setApprovement("Message sended!");
       setError("");
       dispatch(addMessage({ message: data.createdMessage, type: "sended" }));
       clearFields();
@@ -60,7 +58,6 @@ const NewMessage = () => {
   };
 
   const sendMessage = async () => {
-    setApprovement("");
     try {
       const { data } = await Axios().post("/message/add", {
         destination: inputValues.destination,
@@ -76,7 +73,6 @@ const NewMessage = () => {
 
   const handleSubmitClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setApprovement("");
     if (checkEmptyness()) {
       await sendMessage();
     }
@@ -84,7 +80,6 @@ const NewMessage = () => {
   return (
     <Col md="6">
       <Form>
-        {approvement && <Approvement>{approvement}</Approvement>}
         {error && <Error>{error}</Error>}
         <Form.Group className="mb-3" controlId="destination">
           <Form.Label>To</Form.Label>
