@@ -65,7 +65,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "ts-node server/index.ts"
+    "server": "ts-node-dev --respawn --transpile-only server/index.ts",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
