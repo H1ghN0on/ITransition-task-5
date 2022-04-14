@@ -49,11 +49,9 @@ const users: any = {};
 io.on("connection", (socket: any) => {
   socket.on("connected", (id: any) => {
     users[id] = socket.id;
-    console.log(users);
   });
 
   socket.on("send-message", (message: any) => {
-    console.log("wtf");
     socket.to(users[message.destination]).emit("get-message", {
       message: message,
     });

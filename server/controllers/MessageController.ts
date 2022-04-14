@@ -78,13 +78,12 @@ const createMessageInDB = async (message: any, curUser: any) => {
   try {
     const userStatus = await findUser(message.destination, "username");
     if (userStatus.status === "OK") {
-      //тут должна была обрабатываться ошибка отправления сообщения самому себе, но вы поругали за это :)
-      // if (userStatus.user.id === curUser.id) {
-      //   return {
-      //     status: "Error",
-      //     message: "You cannot send the message to yourself",
-      //   };
-      // }
+      if (userStatus.user.id === curUser.id) {
+        return {
+          status: "Error",
+          message: "You cannot send the message to yourself",
+        };
+      }
       const createdMessage = await Message.create({
         ...message,
         destination: userStatus.user.id,
