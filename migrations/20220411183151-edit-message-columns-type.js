@@ -6,7 +6,7 @@ module.exports = {
       type: 'INTEGER USING CAST("destination" as INTEGER)',
     });
     queryInterface.changeColumn("Messages", "sender", {
-      type: 'INTEGER USING CAST("column" as INTEGER)',
+      type: 'INTEGER USING CAST("sender" as INTEGER)',
     });
   },
 
