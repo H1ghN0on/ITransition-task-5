@@ -27,7 +27,7 @@ const findUser = async (value: string | number, field: "id" | "username") => {
   }
 };
 
-const separateMessages = async (messages, curUser) => {
+const separateMessages = async (messages: any, curUser: any) => {
   const incomed = await Promise.all(
     messages
       .filter((item: any) => item.destination === curUser.id)
@@ -62,7 +62,11 @@ const separateMessages = async (messages, curUser) => {
   };
 };
 
-const getName = async (message, curUser, type: "sender" | "destination") => {
+const getName = async (
+  message: any,
+  curUser,
+  type: "sender" | "destination"
+) => {
   if (message[type] !== curUser.id) {
     const data = await findUser(message[type], "id");
     return data.user.username;
@@ -71,7 +75,7 @@ const getName = async (message, curUser, type: "sender" | "destination") => {
   }
 };
 
-const createMessageInDB = async (message, curUser) => {
+const createMessageInDB = async (message: any, curUser: any) => {
   try {
     const userStatus = await findUser(message.destination, "username");
     if (userStatus.status === "OK") {
@@ -112,7 +116,7 @@ const createMessageInDB = async (message, curUser) => {
   }
 };
 
-const getAll = async (id) => {
+const getAll = async (id: any) => {
   try {
     const messages = await Message.findAll({
       where: {
