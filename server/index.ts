@@ -44,7 +44,7 @@ app.post("/message/add", passport.authenticate("jwt"), MessageController.add);
 
 app.post("/register", AuthController.register);
 
-const users = {};
+const users: any = {};
 
 io.on("connection", (socket: any) => {
   socket.on("connected", (id: any) => {
