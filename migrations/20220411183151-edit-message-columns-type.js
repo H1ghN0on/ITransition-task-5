@@ -3,10 +3,10 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     queryInterface.changeColumn("Messages", "destination", {
-      type: Sequelize.INTEGER,
+      type: 'INTEGER USING CAST("destination" as INTEGER)',
     });
     queryInterface.changeColumn("Messages", "sender", {
-      type: Sequelize.INTEGER,
+      type: 'INTEGER USING CAST("column" as INTEGER)',
     });
   },
 
