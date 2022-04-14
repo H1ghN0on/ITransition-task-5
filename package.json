@@ -13,6 +13,9 @@
     "@types/markdown-draft-js": "^2.2.4",
     "@types/markdown-it": "^12.2.3",
     "@types/node": "^16.11.26",
+    "@types/passport": "^1.0.7",
+    "@types/passport-jwt": "^3.0.6",
+    "@types/passport-local": "^1.0.34",
     "@types/react": "^17.0.44",
     "@types/react-dom": "^17.0.15",
     "@types/react-draft-wysiwyg": "^1.13.4",
@@ -62,9 +65,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-  
     "start": "ts-node server/index.ts"
-
   },
   "eslintConfig": {
     "extends": [
