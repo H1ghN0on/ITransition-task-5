@@ -64,7 +64,7 @@ const separateMessages = async (messages: any, curUser: any) => {
 
 const getName = async (
   message: any,
-  curUser,
+  curUser: any,
   type: "sender" | "destination"
 ) => {
   if (message[type] !== curUser.id) {
